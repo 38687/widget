@@ -57,7 +57,6 @@ window.onload=function(){
   function drawHandle(){
     var cssRules=oStyleSheets.cssRules;
     if(oWheel.classList.contains('runGo')){
-      // oWheel.addEventListener("webkitAnimationEnd",cleanDraw,false);
       console.log("抽奖中，别闹~！");
       return false;
     }else{
