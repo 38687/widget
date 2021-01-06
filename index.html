@@ -3,41 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VUE-TEST</title>
-<style type="text/css">
+<title>Document</title>
+<style type="text/css" id="styleSheets">
 *{margin:0;padding:0;}
-.ring{
-  margin:25px auto;width:50px;height:60px;border-radius:50%;background-color:rgba(255,0,0,1);cursor:pointer;
+html{height:100%;}
+body, .draw, .wheel li, .wheel li .prizePic{display:flex;justify-content:center;align-items:center;} /* 上下左右居中 */
+body{min-height:100%;}
+/* 转盘·区域 */
+.wheel, .wheel ul{position:relative;width:300px;height:300px;border-radius:50%;}
+.wheel{border:solid 1px #000;}
+/* 按钮[点击抽奖] */
+.draw{
+  width:50px;height:50px;padding:15px;border-radius:50%;background-color:#000;box-shadow:0 0 10px rgba(0,0,0,.4);
+  line-height:25px;text-decoration:none;color:#FFF;
+  position:absolute;top:50%;left:50%;z-index:9;margin-left:-40px;margin-top:-40px;
 }
-.runGo{
-  animation:rotate 3s ease 1 forwards;
+.draw::before{
+  content:"";display:block;width:0;height:0;border-style:solid;border-color:transparent transparent #000 transparent;border-width:0 10px 24px;
+  position:absolute;top:-23px;left:50%;margin-left:-10px;
 }
+/* 转盘·本体&元素 */
+.wheel ul{list-style:none;}
+.wheel li{
+  position:absolute;top:0;
+  height:42px;overflow:hidden;line-height:normal;color:#000;
+  background-color:rgba(255,60,100,0);
+  padding-top:258px;
+}
+.wheel li::before{
+  content:"";display:block;width:1px;height:300px;
+  background-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%, rgba(0,0,0,1) 100%);
+  position:absolute;top:0;left:50%;
+}
+.wheel li:nth-child(1){color:#444;} /* 第一个不是什么好奖项，文字置灰 */
+.wheel li .prizePic{
+  position:absolute;bottom:30px;left:50%;
+  margin-left:-27px;width:54px;height:54px;text-align:center;
+}
+.wheel li .prizePic img{max-width:100%;max-height:100%;width:auto;height:auto;}
+.wheel li .prizeTitle{position:relative;z-index:6;padding:0 10px;overflow:hidden;text-align:center;}
+.wheel li .prizeTitle strong, .wheel li .prizeTitle em{display:block;overflow:hidden;}
+.wheel li .prizeTitle strong{height:20px;line-height:20px;font-size:14px;}
+.wheel li .prizeTitle em{height:18px;line-height:18px;font-size:12px;font-style:normal;}
 
-@keyframes rotate{
+.runGo{animation:run 3s ease 1 forwards;}
+@keyframes run{
   from{transform:rotate(0deg);}
-  to{transform:rotate(1080deg);}
+  to{transform:rotate(360deg);}
 }
 </style>
 <script type="text/javascript">
+var prizeArr=[
+  {prizeId:0,prizeName:"谢谢惠顾",prizeBrief:"-",prizePic:'images/g0.png'},
+  {prizeId:1,prizeName:"一等奖",prizeBrief:"MacPro-13' 2021",prizePic:'images/g1.png'},
+  {prizeId:2,prizeName:"二等奖",prizeBrief:"iPhone12",prizePic:'images/g2.png'},
+  {prizeId:3,prizeName:"三等奖",prizeBrief:"红包 ￥5000",prizePic:'images/g3.png'},
+  {prizeId:4,prizeName:"四等奖",prizeBrief:"iPadmini5",prizePic:'images/g4.png'},
+  {prizeId:5,prizeName:"五等奖",prizeBrief:"红包 ￥1000",prizePic:'images/g5.png'},
+  {prizeId:6,prizeName:"六等奖",prizeBrief:"红包 ￥500",prizePic:'images/g6.png'},
+  {prizeId:7,prizeName:"七等奖",prizeBrief:"64G内存卡",prizePic:'images/g7.png'}
+];
+
 window.onload=function(){
-  var oRz=document.getElementsByClassName("ring")[0];
-  oRz.addEventListener("click",handle,false);
-  function handle(event){
-    if(oRz.classList.contains('runGo')){
+  // 转盘·元素
+  var oWheel=document.getElementsByClassName("wheel")[0].getElementsByTagName("ul")[0];
+  // 抽奖按钮
+  var oDraw=document.getElementsByClassName("wheel")[0].getElementsByTagName("a")[0];
+  // 奖项个数
+  let prizeLen=prizeArr.length;
+  // 单个奖项·宽度
+  var singleWidth=oWheel.offsetWidth*3.1416/prizeLen;
+  // 单个奖项·角度
+  var prozeAngle=360/prizeLen;
+  // 样式表
+  var oStyleSheets=document.styleSheets[document.styleSheets.length-1];
+  // 抽中了几等奖
+  var award=0;
+
+  // 奖项数组对象·遍历
+  prizeArr.forEach((item,idx)=>{
+    // 角度计算，从180度为开始（默认第一项在上，指针所指方向）
+    var prozeAngleCount=prozeAngle*idx>=180?(prozeAngle*idx-180):(prozeAngle*idx+180);
+    // 奖项数组对象·写进相应角度
+    item.prozeAngle=prozeAngleCount;
+    // 元素对象·创建抽奖项
+    var oLi=document.createElement('li');
+    // 奖项图标
+    if(item.prizePic){
+      var prizeImgArea=document.createElement('span');
+      prizeImgArea.className="prizePic";
+      prizeImgArea.innerHTML="<img src='"+item.prizePic+"' />"
+      oLi.appendChild(prizeImgArea); // 图标对象
+    }
+    // 奖项文字
+    if(item.prizeName){
+      var prizeName=document.createElement('span');
+      prizeName.className="prizeTitle"
+      prizeName.innerHTML="<em>"+item.prizeBrief+"</em><strong>"+item.prizeName+"</strong>";
+      oLi.appendChild(prizeName); // 图标对象
+    }
+    // 奖项计算（位置、角度）
+    oLi.style.transform="rotate("+prozeAngleCount+"deg)"; // 旋转角度
+    oLi.style.width=singleWidth+"px"; // 单个宽度
+    oLi.style.left=(oWheel.offsetWidth/2-singleWidth/2)+"px"; // 位置（半径-单个宽度的一半）
+    // 样式表·元素对象划分线（奖项角度的一半）
+    oStyleSheets.addRule('.wheel li::before','transform:rotate('+prozeAngle/2+'deg)')
+    // 元素对象·写入转盘
+    oWheel.appendChild(oLi);
+  });
+  // 打印奖品对象
+  // console.log(prizeArr);
+
+  // 页面加载时的转动,转完了就清除
+  oWheel.addEventListener("webkitAnimationEnd",cleanDraw,false);
+  // 点击抽奖
+  oDraw.addEventListener("click",drawHandle,false);
+
+  function drawHandle(){
+    var cssRules=oStyleSheets.cssRules;
+    if(oWheel.classList.contains('runGo')){
+      oWheel.addEventListener("webkitAnimationEnd",cleanDraw,false);
       console.log("抽奖中，别闹~！");
       return false;
     }else{
-      oRz.classList.add('runGo');
-      oRz.addEventListener("webkitAnimationEnd",()=>{
-        oRz.classList.remove('runGo');
-      },false)
+      // 找出动作,先删除
+      for(let key in cssRules){
+        if(cssRules[key].name&&cssRules[key].name=="run"){
+          oStyleSheets.deleteRule(key);
+        }
+      }
+      // 几等奖（测试/随机数）
+      award=Math.floor(Math.random()*prizeLen);
+      console.log(award);
+      // 写入转动角度
+      oStyleSheets.insertRule(`@keyframes run{
+        from{transform:rotate(0)}
+        to{transform:rotate(${1440-prozeAngle*award}deg)}
+      }`,oStyleSheets.length-2);
+      // 添加转动效果
+      oWheel.classList.add('runGo');
     }
   }
-}
+  function cleanDraw(){
+    // 保存中奖角度
+    oWheel.style.transform="rotate("+(-prozeAngle*award)+"deg)";
+    // 转盘复位！
+    oWheel.classList.remove('runGo');
+    console.log("转盘复位！");
+  }
+};
+
 </script>
 </head>
-
 <body>
-  <div class="ring"></div>
+  <div class="wheel">
+    <ul class="runGo">
+    </ul>
+    <a class="draw" href="javascript:void(0);">点击<br />抽奖</a>
+  </div>
 </body>
 </html>
