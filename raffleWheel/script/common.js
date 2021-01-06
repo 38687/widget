@@ -76,6 +76,8 @@ window.onload=function(){
       }`,oStyleSheets.length-2);
       // 添加转动效果
       oWheel.classList.add('runGo');
+      // 按钮偏移
+      oDraw.classList.add('drawMov');
     }
   }
   function cleanDraw(){
@@ -83,6 +85,7 @@ window.onload=function(){
     oWheel.style.transform="rotate("+(-prozeAngle*award)+"deg)";
     // 转盘复位！
     oWheel.classList.remove('runGo');
+    oDraw.classList.remove('drawMov');
     console.log("转盘复位！");
   }
 };

@@ -9,9 +9,17 @@
 <link type="text/css" rel="stylesheet" href="style/common.css" />
 <style type="text/css" id="styleSheets">
 .runGo{animation:run 3s ease 1 forwards;}
+.drawMov{animation:mov 1s ease 1 forwards;}
 @keyframes run{
   from{transform:rotate(0deg);}
   to{transform:rotate(360deg);}
+}
+@keyframes mov{
+  0%{transform:rotate(0deg);}
+  10%{transform:rotate(15deg);}
+  30%{transform:rotate(-12deg);}
+  60%{transform:rotate(7deg);}
+  100%{transform:rotate(0deg);}
 }
 </style>
 <script type="text/javascript" src="script/common.js"></script>
@@ -32,7 +40,7 @@ var prizeArr=[
   <div class="wheel">
     <ul class="runGo">
     </ul>
-    <a class="draw" href="javascript:void(0);">点击<br />抽奖</a>
+    <a class="draw drawMov" href="javascript:void(0);">点击<br />抽奖</a>
   </div>
 </body>
 </html>
