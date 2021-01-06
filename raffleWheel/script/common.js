@@ -17,8 +17,8 @@ window.onload=function(){
 
   // 抽奖记录
   var raffleRecord=localStorage.getItem("raffleRecord")?JSON.parse(localStorage.getItem("raffleRecord")):[];
-  console.log("抽奖记录：");
-  console.log(raffleRecord);
+  // console.log("抽奖记录：");
+  // console.log(raffleRecord);
 
   // 奖项数组对象·遍历
   prizeArr.forEach((item,idx)=>{
@@ -73,7 +73,7 @@ window.onload=function(){
       }
       // 几等奖（测试/随机数）
       award=Math.floor(Math.random()*prizeLen);
-      console.log(award);
+      // console.log(award);
       // 写入转动角度
       oStyleSheets.insertRule(`@keyframes run{
         from{transform:rotate(0)}
@@ -103,7 +103,7 @@ window.onload=function(){
     oDraw.classList.remove('drawMov');
     // 指针停摆
     oWheel.classList.remove('runGo');
-    console.log("转盘复位！");
+    // console.log("转盘复位！");
   }
 };
 
@@ -114,7 +114,7 @@ function getRaffleRecord(){
     raffleRecord=[];
     localStorage.setItem("raffleRecord",raffleRecord);
   }
-  console.log(dateTimeFormat(new Date));
+  // console.log(dateTimeFormat(new Date));
 }
 // 时间格式化
 function dateTimeFormat(date){
