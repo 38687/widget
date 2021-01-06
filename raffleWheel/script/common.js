@@ -76,7 +76,7 @@ window.onload=function(){
       }`,oStyleSheets.length-2);
       // 添加转动效果
       oWheel.classList.add('runGo');
-      // 按钮偏移
+      // 指针动摆
       oDraw.classList.add('drawMov');
     }
   }
@@ -84,8 +84,9 @@ window.onload=function(){
     // 保存中奖角度
     oWheel.style.transform="rotate("+(-prozeAngle*award)+"deg)";
     // 转盘复位！
-    oWheel.classList.remove('runGo');
     oDraw.classList.remove('drawMov');
+    // 指针停摆
+    oWheel.classList.remove('runGo');
     console.log("转盘复位！");
   }
 };
