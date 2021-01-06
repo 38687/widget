@@ -15,6 +15,11 @@ window.onload=function(){
   // 抽中了几等奖
   var award=0;
 
+  // 抽奖记录
+  var raffleRecord=localStorage.getItem("raffleRecord")?JSON.parse(localStorage.getItem("raffleRecord")):[];
+  console.log("抽奖记录：");
+  console.log(raffleRecord);
+
   // 奖项数组对象·遍历
   prizeArr.forEach((item,idx)=>{
     // 角度计算，从180度为开始（默认第一项在上，指针所指方向）
@@ -78,6 +83,17 @@ window.onload=function(){
       oWheel.classList.add('runGo');
       // 指针动摆
       oDraw.classList.add('drawMov');
+      // ********** localStorage ********** /
+      // 抽奖时间\抽中奖别\抽中奖项\+\转盘编号\转盘名称
+      var drawResult={
+        drawTime:dateTimeFormat(new Date),
+        drawPrize:prizeArr[award]['prizeName'],
+        prizeName:prizeArr[award]['prizeBrief']
+      }
+      raffleRecord.unshift(drawResult);
+      raffleRecord.length=raffleRecord.length>10?10:raffleRecord.length;
+      localStorage.setItem("raffleRecord",JSON.stringify(raffleRecord));
+      // ********** localStorage ********** /
     }
   }
   function cleanDraw(){
@@ -89,4 +105,29 @@ window.onload=function(){
     oWheel.classList.remove('runGo');
     console.log("转盘复位！");
   }
+};
+
+// 抽奖记录
+function getRaffleRecord(){
+  var raffleRecord=localStorage.getItem("raffleRecord");
+  if(!raffleRecord){
+    raffleRecord=[];
+    localStorage.setItem("raffleRecord",raffleRecord);
+  }
+  console.log(dateTimeFormat(new Date));
+}
+// 时间格式化
+function dateTimeFormat(date){
+  var y=date.getFullYear();
+  var m=date.getMonth()+1;
+      m=m<10?('0'+m):m;
+  var d=date.getDate();
+      d=d<10?('0'+d):d;
+  var h=date.getHours();
+      h=h<10?('0'+h):h;
+  var minute=date.getMinutes();
+      minute=minute<10?('0'+minute):minute;
+  var second=date.getSeconds();
+      second=second<10?('0'+second):second;
+  return y+'-'+m+'-'+d+' '+h+':'+minute+':'+second;
 };
