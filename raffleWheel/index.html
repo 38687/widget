@@ -8,19 +8,21 @@
 <meta name="description" content="原生javascript和css3写的简易抽奖小转盘，自定义设置奖项" />
 <link type="text/css" rel="stylesheet" href="style/common.css" />
 <style type="text/css" id="styleSheets">
-  .runGo{animation:run 3s ease 1 forwards;}
-  .drawMov{animation:mov 1s ease 1 forwards;}
-  @keyframes run{
-    from{transform:rotate(0deg);}
-    to{transform:rotate(360deg);}
-  }
-  @keyframes mov{
-    0%{transform:rotate(0deg);}
-    10%{transform:rotate(15deg);}
-    30%{transform:rotate(-12deg);}
-    60%{transform:rotate(7deg);}
-    100%{transform:rotate(0deg);}
-  }
+.runGo{animation:run 3s ease 1 forwards;}
+.drawMov{animation:mov 1s ease 1 forwards;}
+/* 抽奖转动 */
+@keyframes run{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+/* 指针摆动 */
+@keyframes mov{
+  0%{transform:rotate(0deg);}
+  10%{transform:rotate(15deg);}
+  30%{transform:rotate(-12deg);}
+  60%{transform:rotate(7deg);}
+  100%{transform:rotate(0deg);}
+}
 </style>
 <script type="text/javascript" src="script/common.js"></script>
 <script type="text/javascript">
