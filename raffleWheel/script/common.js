@@ -16,7 +16,7 @@ window.onload=function(){
   if(document.styleSheets.length===0){
     var oStyleSheet=document.createElement('style');
     oStyleSheet.type='text/css';
-    document.getElementsByTagName('head')[0].appendChild(oStyleSheet);
+    document.head.appendChild(oStyleSheet);
     oStyleSheets=document.styleSheets[0]
   }
   // 抽中了几等奖

@@ -5,16 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TEST</title>
 <script type="text/javascript">
-  // 如果页面没有style文件新建一个
-  var oStyleSheets=document.styleSheets[document.styleSheets.length-1];
-  if(document.styleSheets.length===0){
-    var oStyleSheet=document.createElement('style');
-    oStyleSheet.type='text/css';
-    document.getElementsByTagName('head')[0].appendChild(oStyleSheet);
-    oStyleSheets=document.styleSheets[0]
-  }
-  oStyleSheets.addRule('.wheel li::before','transform:rotate(22.5deg)');
-  console.log(oStyleSheets);
+
+  console.log(performance);
 </script>
 </head>
 <body>
