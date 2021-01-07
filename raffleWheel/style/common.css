@@ -39,3 +39,20 @@ body{min-height:100%;}
 .wheel li .prizeTitle strong, .wheel li .prizeTitle em{display:block;overflow:hidden;}
 .wheel li .prizeTitle strong{height:20px;line-height:20px;font-size:14px;}
 .wheel li .prizeTitle em{height:18px;line-height:18px;font-size:12px;font-style:normal;}
+
+.runGo{animation:run 3s ease 1 forwards;}
+/* 抽奖转动 */
+@keyframes run{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+.drawMov{animation:mov 1s ease 1 forwards;}
+/* 指针摆动 */
+@keyframes mov{
+  0%{transform:rotate(0deg);}
+  10%{transform:rotate(15deg);}
+  30%{transform:rotate(-12deg);}
+  60%{transform:rotate(7deg);}
+  100%{transform:rotate(0deg);}
+}

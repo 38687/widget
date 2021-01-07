@@ -12,6 +12,13 @@ window.onload=function(){
   var prozeAngle=360/prizeLen;
   // 样式表
   var oStyleSheets=document.styleSheets[document.styleSheets.length-1];
+  // 样式表·没有则建一个
+  if(document.styleSheets.length===0){
+    var oStyleSheet=document.createElement('style');
+    oStyleSheet.type='text/css';
+    document.getElementsByTagName('head')[0].appendChild(oStyleSheet);
+    oStyleSheets=document.styleSheets[0]
+  }
   // 抽中了几等奖
   var award=0;
 

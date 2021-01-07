@@ -7,23 +7,6 @@
 <meta name="keywords" content="简易抽奖转盘,原生js抽奖转盘,css3抽奖转盘,h5抽奖转盘" />
 <meta name="description" content="原生javascript和css3写的简易抽奖小转盘，自定义设置奖项" />
 <link type="text/css" rel="stylesheet" href="style/common.css" />
-<style type="text/css" id="styleSheets">
-.runGo{animation:run 3s ease 1 forwards;}
-.drawMov{animation:mov 1s ease 1 forwards;}
-/* 抽奖转动 */
-@keyframes run{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
-/* 指针摆动 */
-@keyframes mov{
-  0%{transform:rotate(0deg);}
-  10%{transform:rotate(15deg);}
-  30%{transform:rotate(-12deg);}
-  60%{transform:rotate(7deg);}
-  100%{transform:rotate(0deg);}
-}
-</style>
 <script type="text/javascript" src="script/common.js"></script>
 <script type="text/javascript">
 var prizeArr=[
@@ -40,8 +23,7 @@ var prizeArr=[
 </head>
 <body>
   <div class="wheel">
-    <ul class="runGo">
-    </ul>
+    <ul class="runGo"></ul>
     <a class="draw drawMov" href="javascript:void(0);">点击<br />抽奖</a>
   </div>
 </body>

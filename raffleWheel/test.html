@@ -3,46 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>简易抽奖小转盘</title>
-<meta name="keywords" content="简易抽奖转盘,原生js抽奖转盘,css3抽奖转盘,h5抽奖转盘" />
-<meta name="description" content="原生javascript和css3写的简易抽奖小转盘，自定义设置奖项" />
-<link type="text/css" rel="stylesheet" href="style/common.css" />
-<style type="text/css" id="styleSheets">
-.runGo{animation:run 3s ease 1 forwards;}
-.drawMov{animation:mov 1s ease 1 forwards;}
-/* 抽奖转动 */
-@keyframes run{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}
-/* 指针摆动 */
-@keyframes mov{
-  0%{transform:rotate(0deg);}
-  10%{transform:rotate(15deg);}
-  30%{transform:rotate(-12deg);}
-  60%{transform:rotate(7deg);}
-  100%{transform:rotate(0deg);}
-}
-</style>
-<script type="text/javascript" src="script/common.js"></script>
+<title>TEST</title>
 <script type="text/javascript">
-var prizeArr=[
-  {prizeId:0,prizeName:"谢谢惠顾",prizeBrief:"-",prizePic:'images/g0.png'},
-  {prizeId:1,prizeName:"一等奖",prizeBrief:"MacPro-13' 2021",prizePic:'images/g1.png'},
-  {prizeId:2,prizeName:"二等奖",prizeBrief:"iPhone12",prizePic:'images/g2.png'},
-  {prizeId:3,prizeName:"三等奖",prizeBrief:"红包 ￥5000",prizePic:'images/g3.png'},
-  {prizeId:4,prizeName:"四等奖",prizeBrief:"iPadmini5",prizePic:'images/g4.png'},
-  {prizeId:5,prizeName:"五等奖",prizeBrief:"红包 ￥1000",prizePic:'images/g5.png'},
-  {prizeId:6,prizeName:"六等奖",prizeBrief:"红包 ￥500",prizePic:'images/g6.png'},
-  {prizeId:7,prizeName:"七等奖",prizeBrief:"64G内存卡",prizePic:'images/g7.png'}
-];
+  // 如果页面没有style文件新建一个
+  var oStyleSheets=document.styleSheets[document.styleSheets.length-1];
+  if(document.styleSheets.length===0){
+    var oStyleSheet=document.createElement('style');
+    oStyleSheet.type='text/css';
+    document.getElementsByTagName('head')[0].appendChild(oStyleSheet);
+    oStyleSheets=document.styleSheets[0]
+  }
+  oStyleSheets.addRule('.wheel li::before','transform:rotate(22.5deg)');
+  console.log(oStyleSheets);
 </script>
 </head>
 <body>
-  <div class="wheel">
-    <ul class="runGo">
-    </ul>
-    <a class="draw drawMov" href="javascript:void(0);">点击<br />抽奖</a>
-  </div>
+
 </body>
 </html>
