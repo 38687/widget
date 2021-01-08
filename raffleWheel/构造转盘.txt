@@ -1,0 +1,14 @@
+// 获取转盘容器
+let oRW=document.getelementsByClassName("raffleWheel-box");
+let prizeArr=[
+	{奖项数据1},
+	{奖项数据2},
+	…
+]
+// 构建转盘
+let rw=new RaffleWheel(oRW,[奖项数据],{
+	direction:0,	// 转动方向，0:顺时间[默认],1:逆时针
+	duration:3000,	// 转动时间，默认3秒(3000)
+	delayTime:0,	// 迟延时间，奖别越高延迟越高。默认0
+	btnTxt:'点击抽奖',	// 按钮显示文字，默认:点击抽奖
+});
