@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三级导航</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<style type="text/css" rel="stylesheet">
+/* reset.css */
+html{color:#000;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+html *{outline:0;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0)}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0}
+html,body,input,select,button,textarea{font:14px/1.5 "微软雅黑","\5B8B\4F53",Arial,Helvetica,sans-serif;color:#333;}
+input,select,textarea{font-size:100%}
+button{border:none;}
+table{border-collapse:collapse;border-spacing:0}
+fieldset,img{border:0}
+img{vertical-align:top;max-width:100%;}
+abbr,acronym{border:0;font-variant:normal}
+del{text-decoration:line-through}
+address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500}
+ol,ul{list-style:none}
+caption,th{text-align:left}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+q:before,q:after{content:''}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+a:hover, a:hover em{color:#EE1D25;}
+ins,a{text-decoration:none;color:#333;}
+/* reset.css 清除浮动 */
+.clearfix::after{visibility:hidden;clear:both;display:block;height:0;font-size:0;content:"";}
+.clearfix:after{visibility:hidden;clear:both;display:block;height:0;font-size:0;content:"";}
+
+.nav{position:relative;}
+/* 导航.开关 */
+.nav li ul, .nav li:hover ul ul, .nav li.hover ul ul{display:none;}
+.nav li:hover ul, .nav li.hover ul, .nav li:hover ul li:hover ul, .nav li:hover ul li.hover ul, .nav li.hover ul li:hover ul, .nav li.hover ul li.hover ul{display:block;}
+/* 导航.设置&基本 */
+.nav ul{text-align:center;font-size:0;}
+.nav li{display:inline-block;*display:inline;vertical-align:top;font-size:14px;}
+.nav li a{border-bottom:1px solid transparent;}
+/* 导航.设置&层级 */
+.nav li{position:relative;z-index:1;}
+.nav li:hover, .nav .getSub{z-index:3;}
+/* 导航.设置&大小 */
+.nav li a, .nav li .getSub{display:block;height:43px;line-height:43px;}
+.nav li a{width:auto;white-space:nowrap;}
+.nav li ul li a, .nav li ul .getSub{height:30px;line-height:30px;}
+.nav li ul ul li a{width:auto;min-width:84px;text-align:left;}
+.nav li a{padding-right:10px;padding-left:54px;}
+.nav li.single a{padding-left:10px;}
+.nav li ul li a{padding-left:39px;}
+.nav li ul ul li a{padding-left:10px;}
+/* 导航.设置&位置 */
+.nav li ul li{display:block;}
+.nav li ul ul{position:absolute;top:0;left:100%;padding-top:0;}
+/* 导航.设置&位置.三级在左边 */
+.nav .leftSide ul ul{left:auto;right:100%;}/* < */
+/* 导航.色值 */
+.nav li a,
+.nav li:hover ul a, .nav .hover ul a, .nav .active ul a,
+.nav li ul li:hover ul a, .nav li ul .hover ul a,
+.nav li:hover ul li:hover ul a, .nav li:hover ul .hover ul a, .nav .hover ul li:hover ul a, .nav .hover ul .hover ul a{background-color:transparent;}
+/* 导航.色值.一级hover */
+.nav li a:hover, .nav li:hover a, .nav .hover a, .nav .active a{background-color:#37C;color:#FFF;}
+/* 导航.色值.二三级背景色 */
+.nav li ul li{background-color:#06C;}
+.nav li ul ul li{background-color:#005CBD;}
+/* 导航.色值.二级hover */
+.nav li ul a:hover, .nav li ul li:hover a,
+.nav li:hover ul a:hover, .nav li:hover ul li:hover a,
+.nav .hover ul a:hover, .nav .hover ul li:hover a, .nav .hover ul li.hover a{background-color:#27C;}
+/* 导航.色值.三级hover */
+.nav li ul ul a:hover, .nav li ul li:hover ul a:hover, .nav li ul .hover ul a:hover,
+.nav li:hover ul li:hover ul a:hover, .nav li:hover ul .hover ul a:hover, .nav .hover ul li:hover ul a:hover, .nav .hover ul .hover ul a:hover{background-color:#27C;}
+/* 导航.其他.边框·二三级下边框颜色 */
+.nav li a:hover, .nav li.hover a{border-bottom:1px solid #4a8ade;}
+.nav li ul a, .nav li ul a:hover, .nav li.hover ul a{border-bottom:1px solid #07C;}
+/* 导航.指示箭头·基本&一级指示 */
+.nav li .getSub, .nav li .getSub::before{position:absolute;left:0;top:0;width:45px;height:45px;line-height:45px;text-align:center;color:#FFF;}
+.nav li .getSub{border-right:1px solid #4a8ade;}
+.nav li .getSub::before{content:"≫";}
+/* 导航.指示箭头·二级指示 */
+.nav li ul li .getSub, .nav li ul li .getSub::before{width:30px;height:30px;line-height:30px;}
+.nav li ul li .getSub{border-right:1px solid #07C;}
+/* 导航.指示箭头·转向 */
+.nav li .getSub::before, .nav li:hover ul li .getSub::before, .nav li.hover ul li .getSub::before{transform:rotate(0);}
+.nav li:hover .getSub::before, .nav li.hover .getSub::before,
+.nav li.hover ul li:hover .getSub::before, .nav li.hover ul li.hover .getSub::before,
+.nav li:hover ul li:hover .getSub::before, .nav li:hover ul li.hover .getSub::before{transform:rotate(90deg);}
+/* IE8·指示箭头 */
+.nav li .getSub, .nav li .getSub:before{position:absolute;left:0;top:0;width:45px;height:45px;line-height:45px;text-align:center;color:#FFF;}
+.nav li .getSub:before{content:"≫";}
+.nav li ul li .getSub, .nav li ul .getSub:before{width:30px;height:30px;line-height:30px;}
+
+/* 导航按钮·基本-不考虑IE8 */
+.nav-btn span, .nav-btn::before,.nav-btn::after{
+  position:absolute;top:15px;left:50%;margin-left:-12px;
+  display:block;width:24px;height:2px;overflow:hidden;background-color:#FFF;
+  transition:all 600ms ease-in-out;
+}
+.nav-btn{position:absolute;z-index:11;right:0;top:0;margin:4px 10px;float:right;display:none;width:32px;height:32px;background-color:#F00;border-radius:4px;}
+.nav-btn::before, .nav-btn::after{content:"";}
+.nav-btn span{font-size:0;text-indent:-99em;width:0;}
+.nav-btn::before{transform:rotate(-45deg);}
+.nav-btn::after{transform:rotate(45deg);}
+/* 导航按钮·展开 */
+.subside .nav-btn span{width:24px;}
+.subside .nav-btn::before, .subside .nav-btn::after{transform:rotate(0);}
+.subside .nav-btn::before{top:7px;}
+.subside .nav-btn::after{top:23px;}
+/**/
+
+@media screen and (max-width:1024px){
+}
+/* 平板，768~1024 */
+@media screen and (min-width:768px) and (max-width:1024px){
+}
+/* 手机，小于767 */
+@media screen and (max-width:767px){
+  /* 突然块状起来了 */
+  .subside ul{display:none;}
+  .nav li{display:block;}
+  .nav li a, .nav li .getSub, .nav li .getSub::before{height:39px;line-height:39px;}
+  .nav li a{display:block;text-align:left;color:#FFF;background-color:#36A;border-bottom:solid 1px #4a8ade;}
+  .nav li .getSub, .nav li .getSub::before{width:39px;}
+  .nav li ul{padding-top:0;}
+  .nav li ul ul{position:static;}
+  /* 突然出现了按钮开关 */
+  .nav-btn{display:block;}
+}
+</style>
+<script>
+// 设备
+var isMobileEQ=/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+// 屏幕宽度
+var isMobileWH=window.matchMedia?window.matchMedia("(max-width:767px)").matches:false;
+var oNav=null,oNavBtn=null;
+window.onload=function(){
+  oNav=document.getElementById("nav"),
+  oNavUl=oNav.getElementsByTagName("ul")[0];
+  oNavBtn=document.getElementById("nav-btn");
+  if(oNav){
+    addEvent(oNav,"click",function(e){
+      // 目标对象
+      var target=e.target||e.srcElement;
+      // 阻止默认行为
+      if(e.preventDefault){
+        e.preventDefault();
+      }else{
+        window.event.returnValue=false;
+      }
+      // 导航开关展开与否
+      if(target.id==='nav-btn'||target.parentNode.id==='nav-btn'){
+        if(hasClass(oNav,"subside")){
+          removeClass(oNav,"subside");
+        }else{
+          addClass(oNav,"subside");
+        }
+      }
+    });
+    // addEvent(oNav,"touchstart",function(e){
+    //   // 阻止默认行为
+    //   if(e.preventDefault){
+    //     e.preventDefault();
+    //   }else{
+    //     window.event.returnValue=false;
+    //   }
+    // });
+  }
+}
+window.onresize=function(){
+// 屏幕变化大小时，导航显示隐藏（应对导航关闭时再展开不显示）
+  isMobileWH=window.matchMedia?window.matchMedia("(max-width:768px)").matches:false;
+  oNav=document.getElementById("nav"),
+  oNavUl=oNav.getElementsByTagName("ul")[0];
+  if(!isMobileWH){
+    addClass(oNav,"subside");
+  }else{
+    removeClass(oNav,"subside");
+  }
+}
+
+
+// ===========
+// 常用函数整理
+// ===========
+
+// 添加事件
+function addEvent(obj,type,handler){
+  if(typeof obj!='object'||typeof handler!='function'){return;}
+  if(obj.addEventListener){
+    obj.addEventListener(type,handler,false);
+  }else{
+    obj.attachEvent('on'+type,function(){
+      handler.apply(obj,arguments);
+    });
+  }
+}
+// 移除事件
+function removeEvent(obj,type,handler){
+  if(typeof obj!='object'||typeof handler!='function'){return;}
+  if(obj.addEventListener){
+    obj.removeEventListener(type,handler,false);
+  }else{
+    obj.detachEvent('on'+type,function(){
+      handler.apply(obj,arguments);
+    });
+  }
+}
+// 下一个实体节点
+function nextElementNode(node){
+  var nextElementNode=node.nextElementSibling||node.nextSibling;
+  while(nextElementNode!=null&&nextElementNode.nodeType!=1){
+    nextElementNode=nextElementNode.nextSibling
+  }
+  return nextElementNode;
+}
+// 判断有class
+function hasClass(ele,cls){
+  if(!ele){return false;}
+  return ele.className.match(new RegExp("(\\s|^)"+cls+"(\\s|$)"));
+}
+// 添加class
+function addClass(ele,cls){
+  if(!ele){return false;}
+  if(!this.hasClass(ele,cls)){
+    ele.className=ele.className==""?cls:ele.className+" "+cls;
+    // ele.className+=" "+cls;
+  }
+}
+// 删除class
+function removeClass(ele,cls){
+  if(!ele){return false;}
+  if(hasClass(ele,cls)){
+      var regX=new RegExp("(\\s|^)"+cls+"(\\s|$)");
+      ele.className=ele.className.replace(regX,"");
+  }
+}
+</script>
+</head>
+<body>
+  
+  <div id="nav" class="nav subside"><!--/subside 塌陷,收缩/-->
+    <button class="nav-btn" id="nav-btn"><span></span></button>
+    <ul class="clearfix">
+      <li class="single active"><a href="javascript:void(0);">首页</a></li>
+      <li>
+        <span class="getSub"></span>
+        <a href="javascript:void(0);">走进信诚</a>
+        <ul>
+          <li><a href="javascript:void(0);">集团简介</a></li>
+          <li><a href="javascript:void(0);">总裁致词</a></li>
+          <li><a href="ajavascript:void(0);">组织结构</a></li>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">发展历程</a>
+            <ul>
+              <li><a href="javascript:void(0);">2018-2088</a></li>
+              <li><a href="javascript:void(0);">2008-2017</a></li>
+              <li><a href="javascript:void(0);">1998-2007</a></li>
+              <li><a href="javascript:void(0);">1988-1997</a></li>
+            </ul>
+          </li>
+          <li><a href="javascript:void(0);">企业荣耀</a></li>
+          <li><a href="javascript:void(0);">领导关怀</a></li>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">社会责任</a>
+            <ul>
+              <li><a href="javascript:void(0);">捐助教育</a></li>
+              <li><a href="javascript:void(0);">赈灾济困</a></li>
+              <li><a href="javascript:void(0);">文体事业</a></li>
+              <li><a href="javascript:void(0);">公益慈善</a></li>
+              <li><a href="javascript:void(0);">关注环保</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="getSub"></span>
+        <a href="javascript:void(0);">企业文化</a>
+        <ul>
+          <li><a href="javascript:void(0);">信诚文化</a></li>
+          <li><a href="javascript:void(0);">管理理念</a></li>
+          <li><a href="javascript:void(0);">企业形象</a></li>
+          <li><a href="javascript:void(0);">篮球俱乐部</a></li>
+        </ul>
+      </li>
+      <li>
+        <span class="getSub"></span>
+        <a href="javascript:void(0);">新闻中心</a>
+        <ul>
+          <li><a href="javascript:void(0);">集团新闻</a></li>
+          <li><a href="javascript:void(0);">媒体报道</a></li>
+          <li><a href="javascript:void(0);">政策聚焦</a></li>
+        </ul>
+      </li>
+      <li>
+        <span class="getSub"></span>
+        <a href="javascript:void(0);">集团产业</a>
+        <ul>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">高新材料</a>
+            <ul>
+              <li><a href="javascript:void(0);">福建华清电子材料科技有限公司</a></li>
+            </ul>
+          </li>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">生态纺织</a>
+            <ul>
+              <li><a href="javascript:void(0);">福建信隆纺织有限公司</a></li>
+              <li><a href="javascript:void(0);">晋江市信诚化纤实业有限公司</a></li>
+              <li><a href="javascript:void(0);">福建信诚合成纤维有限公司</a></li>
+              <li><a href="javascript:void(0);">江西省信诚纺织印染有限公司</a></li>
+              <li><a href="javascript:void(0);">江西信诚高档面料有限公司</a></li>
+            </ul>
+          </li>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">金融投资</a>
+            <ul>
+              <li><a href="javascript:void(0);">金博士（福建）投资有限公司</a></li>
+              <li><a href="javascript:void(0);">厦门火炬信诚小额贷款有限公司</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="getSub"></span>
+        <a href="javascript:void(0);">人才通道</a>
+        <ul>
+          <li><a href="javascript:void(0);">人才策略</a></li>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">招聘信息</a>
+            <ul>
+              <li><a href="javascript:void(0);">招聘职位</a></li>
+              <li><a href="javascript:void(0);">合作招聘网站</a></li>
+              <li><a href="javascript:void(0);">人才库</a></li>
+            </ul>
+          </li>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">校园通道</a>
+            <ul>
+              <li><a href="javascript:void(0);">招聘动态</a></li>
+              <li><a href="javascript:void(0);">合作院校</a></li>
+            </ul>
+          </li>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">工作在信诚</a>
+            <ul>
+              <li><a href="javascript:void(0);">职业发展与规划</a></li>
+              <li><a href="javascript:void(0);">培训教育与激励</a></li>
+              <li><a href="javascript:void(0);">工作生活与环境</a></li>
+              <li><a href="javascript:void(0);">精神文化活动</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li class="leftSide">
+        <span class="getSub"></span>
+        <a href="javascript:void(0);">客户服务</a>
+        <ul>
+          <li>
+            <span class="getSub"></span>
+            <a href="javascript:void(0);">联系我们</a>
+            <ul>
+              <li><a href="javascript:void(0);">集团总部</a></li>
+              <li><a href="javascript:void(0);">纺织业</a></li>
+              <li><a href="javascript:void(0);">新材料</a></li>
+              <li><a href="javascript:void(0);">金融投资</a></li>
+              <li><a href="javascript:void(0);">网站联络</a></li>
+            </ul>
+          </li>
+          <li><a href="javascript:void(0);">在线反馈</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div><!--/nav/-->
+
+</body>
+</html>
