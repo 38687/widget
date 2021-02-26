@@ -19,12 +19,31 @@ var prizeArr=[
   {prizeId:6,prizeName:"六等奖",prizeBrief:"红包 ￥500",prizePic:'images/g6.png'},
   {prizeId:7,prizeName:"七等奖",prizeBrief:"64G内存卡",prizePic:'images/g7.png'}
 ];
+window.onload=function(){
+  let oDiv=document.getElementsByClassName("wheel")[0];   // 转盘容器
+  let oDraw=document.getElementsByClassName("draw")[0];   // 转盘按钮
+  let timer=null;
+  var xo=new RaffleWheel(oDiv,prizeArr);  // 转盘组件。生成转盘及奖项
+
+  // 请求操作.测试
+  oDraw.addEventListener("click",function(ev){
+    var award=Math.floor(Math.random()*prizeArr.length);  // 测试·抽奖随机数
+    console.log(award);
+    xo.drawHandle(award); // 转动
+
+    clearTimeout(timer);
+    timer=setTimeout(function(){
+      let textStr=award?("恭喜你抽中"+prizeArr[award].prizeName+" 获得 "+prizeArr[award].prizeBrief+" ！"):("很遗憾没有抽中任何奖品，再接再厉吧~加油！");
+      alert(textStr);
+    },3350)
+  },false)
+}
 </script>
 </head>
 <body>
   <div class="wheel">
-    <ul class="runGo"></ul>
     <a class="draw drawMov" href="javascript:void(0);">点击<br />抽奖</a>
   </div>
+
 </body>
 </html>
