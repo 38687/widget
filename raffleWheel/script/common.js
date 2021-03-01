@@ -8,10 +8,11 @@ class RaffleWheel{
     this.award=0;       // 抽奖几等奖
     this.oStyleSheets=null;  // 页面上样式表（添加旋转角度用）
     // 几项计算数据
+    this.clientWidth=this.oDiv.clientWidth;
     this.prizeLen=this.aPrize.length;                               // 奖项个数
     this.prozeAngle=360/this.prizeLen;                              // 单个奖项·角度
-    this.singleWidth=this.oDiv.clientWidth*Math.sin((180/this.prizeLen)*(Math.PI/180));   // 单个奖项·宽度
-    this.singleTangent=this.prizeLen<=2?this.oDiv.clientWidth:this.oDiv.clientWidth*Math.tan((180/this.prizeLen)*(Math.PI/180)); // 单个交期·外切边长
+    this.singleWidth=this.clientWidth*Math.sin((180/this.prizeLen)*(Math.PI/180));   // 单个奖项·宽度
+    this.singleTangent=this.prizeLen<=2?this.clientWidth:this.clientWidth*Math.tan((180/this.prizeLen)*(Math.PI/180)); // 单个交期·外切边长
     console.log(this.singleWidth+" / "+this.singleTangent);
     // 抽奖记录
     this.aRaffleRecord=localStorage.getItem("raffleRecord")?JSON.parse(localStorage.getItem("raffleRecord")):[];
@@ -57,7 +58,7 @@ class RaffleWheel{
       // 奖项计算（位置、角度）
       oLi.style.transform="rotate("+prozeAngleCount+"deg)"; // 旋转角度
       oLi.style.width=this.singleWidth+"px"; // 单个宽度
-      oLi.style.left=(this.oDiv.clientWidth/2-this.singleWidth/2)+"px"; // 位置（半径-单个宽度的一半）
+      oLi.style.left=(this.clientWidth/2-this.singleWidth/2)+"px"; // 位置（半径-单个宽度的一半）
       // 元素对象·写入转盘
       oWheel.appendChild(oLi);
     });
@@ -69,7 +70,7 @@ class RaffleWheel{
     // 样式表·元素对象划分线（奖项角度的一半）
     this.oStyleSheets.addRule('.wheel li::before','transform:rotate('+this.prozeAngle/2+'deg)');
     // 样式表·元素对象背景色（左移外切边长的一半）
-    this.oStyleSheets.addRule('.wheel li::after','margin-left:-'+this.singleTangent/2+'px');
+    this.oStyleSheets.addRule('.wheel li::after','border-width:0 '+this.singleTangent/2+'px '+this.clientWidth/2+'px;margin-left:-'+this.singleTangent/2+'px');
     // 默认转到竖线，哪也不是
     this.oWheel.style.transform="rotate(-"+(this.prozeAngle/2)+"deg)";
     // 页面加载时的转动,转完了就清除
