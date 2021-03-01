@@ -31,9 +31,10 @@ body{min-height:100%;}
 }
 .wheel li::after{
   content:"";display:block;width:0;height:0;
-  border-style:solid;border-width:0 57px 150px;border-color:transparent transparent rgba(255,0,0,0.5);
-  position:absolute;top:150px;left:-2px;z-index:1;
+  border-style:solid;border-width:0 62.13px 150px;border-color:transparent transparent rgba(255,0,0,0.5);
+  position:absolute;top:150px;left:50%;z-index:1;
 }
+.wheel li:nth-child(even)::after{border-color:transparent transparent rgba(255,255,255,0.5);}
 .wheel li:nth-child(1){color:#444;} /* 第一个不是什么好奖项，文字置灰 */
 .wheel li .prizePic{
   position:absolute;bottom:30px;left:50%;z-index:3;
