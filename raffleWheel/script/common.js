@@ -9,11 +9,10 @@ class RaffleWheel{
     this.oStyleSheets=null;  // 页面上样式表（添加旋转角度用）
     // 几项计算数据
     this.clientWidth=this.oDiv.clientWidth;
-    this.prizeLen=this.aPrize.length;                               // 奖项个数
-    this.prozeAngle=360/this.prizeLen;                              // 单个奖项·角度
+    this.prizeLen=this.aPrize.length;     // 奖项个数
+    this.prozeAngle=360/this.prizeLen;    // 单个奖项·角度
     this.singleWidth=this.clientWidth*Math.sin((180/this.prizeLen)*(Math.PI/180));   // 单个奖项·宽度
     this.singleTangent=this.prizeLen<=2?this.clientWidth:this.clientWidth*Math.tan((180/this.prizeLen)*(Math.PI/180)); // 单个交期·外切边长
-    console.log(this.singleWidth+" / "+this.singleTangent);
     // 抽奖记录
     this.aRaffleRecord=localStorage.getItem("raffleRecord")?JSON.parse(localStorage.getItem("raffleRecord")):[];
     // 初使化

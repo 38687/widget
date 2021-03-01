@@ -10,14 +10,20 @@
 <script type="text/javascript" src="script/common.js"></script>
 <script type="text/javascript">
 var prizeArr=[
-  {prizeId:0,prizeName:"谢谢惠顾",prizeBrief:"-",prizePic:'images/g0.png'},
-  {prizeId:1,prizeName:"一等奖",prizeBrief:"MacPro-13' 2021",prizePic:'images/g1.png'},
-  {prizeId:2,prizeName:"二等奖",prizeBrief:"iPhone12",prizePic:'images/g2.png'},
-  {prizeId:3,prizeName:"三等奖",prizeBrief:"红包 ￥5000",prizePic:'images/g3.png'},
-  {prizeId:4,prizeName:"四等奖",prizeBrief:"iPadmini5",prizePic:'images/g4.png'},
-  {prizeId:5,prizeName:"五等奖",prizeBrief:"红包 ￥1000",prizePic:'images/g5.png'},
-  {prizeId:6,prizeName:"六等奖",prizeBrief:"红包 ￥500",prizePic:'images/g6.png'},
-  {prizeId:7,prizeName:"七等奖",prizeBrief:"64G内存卡",prizePic:'images/g7.png'}
+  {
+    prizeId:0,  // 奖品ID
+    quantity:1, // 奖品数量，抽宛去除该奖项
+    prizeName:"谢谢惠顾", // 奖品等级
+    prizeBrief:"-", // 奖品内容
+    prizePic:'images/g0.png'  // 奖品图标地址
+  },
+  {prizeId:1,quantity:1,prizeName:"一等奖",prizeBrief:"MacPro-13' 2021",prizePic:'images/g1.png'},
+  {prizeId:2,quantity:1,prizeName:"二等奖",prizeBrief:"iPhone12",prizePic:'images/g2.png'},
+  {prizeId:3,quantity:1,prizeName:"三等奖",prizeBrief:"红包 ￥5000",prizePic:'images/g3.png'},
+  {prizeId:4,quantity:1,prizeName:"四等奖",prizeBrief:"iPadmini5",prizePic:'images/g4.png'},
+  {prizeId:5,quantity:1,prizeName:"五等奖",prizeBrief:"红包 ￥1000",prizePic:'images/g5.png'},
+  {prizeId:6,quantity:1,prizeName:"六等奖",prizeBrief:"红包 ￥500",prizePic:'images/g6.png'},
+  {prizeId:7,quantity:1,prizeName:"七等奖",prizeBrief:"256G U盘",prizePic:'images/g7.png'}
 ];
 window.onload=function(){
   let oDiv=document.getElementsByClassName("wheel")[0];   // 转盘容器
